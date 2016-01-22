@@ -1,0 +1,39 @@
+#Get all directories in your current directory and sort the array
+$homedirs = Get-childItem |Where-Object {$_.PsIsContainer}
+$homedirs = $homedirs | Sort-Object
+$10count =0
+$15count =0
+$18count =0
+
+foreach ($homedirs in $homedirs)
+{
+    
+	$files = get-childitem -path $homedirs\images
+	$numberoffiles = $files.count / 2
+	if ($numberoffiles -le 10)
+		{
+
+    	echo "$homedirs has 10 files copying template"
+    copy-item -path 'M:\bulk image\watchmygf\10template.html' -Destination $homedirs\index.html
+            $10count++
+		}
+	if ($numberoffiles -eq 15)
+		{
+			echo "$homedirs has 15 files copying template"
+            copy-item -path 'M:\bulk image\watchmygf\15template.html' -Destination $homedirs\index.html
+            $15count++
+		}
+	elseif ($numberoffiles -ge 18)
+		{
+            echo "$homedirs has 18 files copying template"
+            copy-item -path 'M:\bulk image\watchmygf\18pictemplate.html' -Destination $homedirs\index.html
+            $18count++
+            		
+		}
+
+}
+
+
+echo "$10count galleries have 10 images"
+echo "$15count galleries have 15 images"
+echo "$18count galleries have 18 images"
